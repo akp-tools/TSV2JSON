@@ -1,7 +1,7 @@
 {
   "name": "tsv2md",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.html",
   "repository": "https://github.com/AKPWebDesign/TSV2MD.git",
   "author": "Austin Peterson <austin@akp.software>",
   "license": "MIT",
