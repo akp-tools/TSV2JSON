@@ -4,28 +4,25 @@ const tsv2Json = (tsvText) => {
     .split('\n')
     .map(
       (line) => line.split('\t')
-    ) as any[];
+    );
 
-  // the keys are the first line
-  const keys = tsvLines[0];
+  // the keys are the first line, everything else is data
+  const [keys, ...data] = tsvLines;
 
-  console.log(keys)
-
-  const json = [];
-
-  tsvLines.slice(1, tsvLines.length).forEach((line) => {
-    console.log(line);
-
-    const obj = {};
-
-    keys.forEach((k, i) => {
-      obj[k] = line[i];
-    });
-
-    json.push(obj);
-  });
-
-  console.log(JSON.stringify(json, null, 2))
+  // map over data lines
+  const json = data.map(
+    // for each line, reduce over keys
+    (line) => keys.reduce(
+      (obj, k, i) =>
+        // object property `k` set to matching value from the line
+        // return resulting object for reducer
+        // yes, this is confusing, but this was fun to write this way.
+        // the object assignment needs to be in parentheses or else the line data and object will get ANDed together before the assignment instead.
+        (obj[k] = line[i]) && obj,
+      // default to an empty object
+      {}
+    )
+  );
 
   return JSON.stringify(json, null, 2);
 };
