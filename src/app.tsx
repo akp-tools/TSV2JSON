@@ -1,18 +1,17 @@
 import * as React from 'react';
 
-import MDTextArea from './components/MDTextArea';
-import MDRender from './components/MDRender';
+import JsonTextArea from './components/JsonTextArea';
 import TSVTextArea from './components/TSVTextArea';
 
-import tsv2Md from './lib/TSV2MD';
+import tsv2Json from './lib/TSV2JSON';
 
 const App = () => {
   const [tsvText, setTsvText] = React.useState('');
-  const [mdText, setMdText] = React.useState('');
+  const [jsonText, setJsonText] = React.useState('');
 
   React.useEffect(() => {
-    setMdText(tsv2Md(tsvText));
-  }, [tsvText, setMdText]);
+    setJsonText(tsv2Json(tsvText));
+  }, [tsvText, setJsonText]);
 
   return (
     <>
@@ -20,14 +19,9 @@ const App = () => {
       <br />
       <TSVTextArea onUpdate={t => setTsvText(t)} />
       <br />
-      <span>MD:</span>
+      <span>JSON:</span>
       <br />
-      <MDTextArea markdownText={mdText} />
-      <br />
-      <br />
-      <span>Rendered:</span>
-      <br />
-      <MDRender markdownText={mdText} />
+      <JsonTextArea jsonText={jsonText} />
     </>
   )
 };
